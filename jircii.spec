@@ -3,8 +3,8 @@
 %define gcj_support     1
 
 Name:           jircii
-Version:        0.0
-Release:        %mkrel 0.b41.2
+Version:        41
+Release:        %mkrel 1
 Epoch:          1
 Summary:        An Internet Relay Chat (IRC) client for Windows, MacOS X, and Linux
 License:        Artistic
