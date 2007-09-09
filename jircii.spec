@@ -4,7 +4,7 @@
 
 Name:           jircii
 Version:        41
-Release:        %mkrel 2
+Release:        %mkrel 3
 Epoch:          1
 Summary:        An Internet Relay Chat (IRC) client for Windows, MacOS X, and Linux
 License:        Artistic
@@ -59,7 +59,7 @@ jIRCii is fully scriptable using sleep, a Perl-like language.
 
 %package        javadoc
 Summary:        Javadoc for %{name}
-Group:          Development/Documentation
+Group:          Development/Java
 
 %description    javadoc
 Javadoc for %{name}.
