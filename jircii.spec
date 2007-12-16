@@ -4,7 +4,7 @@
 
 Name:           jircii
 Version:        41
-Release:        %mkrel 4
+Release:        %mkrel 5
 Epoch:          1
 Summary:        An Internet Relay Chat (IRC) client for Windows, MacOS X, and Linux
 License:        Artistic
@@ -34,7 +34,7 @@ Requires:       sleep >= %{sleep_version}
 BuildRequires:  ant >= 0:1.6
 BuildRequires:  desktop-file-utils
 BuildRequires:  java-javadoc
-BuildRequires:  jpackage-utils >= 0:1.5
+BuildRequires:  java-rpmbuild >= 0:1.5
 BuildRequires:  sleep >= %{sleep_version}
 BuildRequires:  sleep-javadoc >= %{sleep_version}
 %if %{gcj_support}
