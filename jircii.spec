@@ -43,7 +43,6 @@ BuildRequires:  java-gcj-compat-devel
 BuildRequires:  java-devel >= 0:1.4.2
 BuildArch:      noarch
 %endif
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 jIRCii is an Internet Relay Chat client (IRC) for Windows, MacOS X, 
