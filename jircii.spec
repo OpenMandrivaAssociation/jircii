@@ -4,7 +4,7 @@
 
 Name:           jircii
 Version:        42
-Release:        %mkrel 0.0.1
+Release:        %mkrel 0.0.2
 Epoch:          1
 Summary:        An Internet Relay Chat (IRC) client for Windows, MacOS X, and Linux
 License:        Artistic
