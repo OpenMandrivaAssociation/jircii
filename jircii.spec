@@ -1,18 +1,16 @@
 %define section         free
-%define sleep_version   1:2.1-0.b14
+%define sleep_version   1:2.1.20
 %define gcj_support     1
 
 Name:           jircii
-Version:        41
-Release:        %mkrel 5
+Version:        42
+Release:        %mkrel 0.0.1
 Epoch:          1
 Summary:        An Internet Relay Chat (IRC) client for Windows, MacOS X, and Linux
 License:        Artistic
-URL:            http://jirc.hick.org/jirc/
 Group:          Development/Java
-#Vendor:        JPackage Project
-#Distribution:  JPackage
-Source0:        http://jirc.hick.org/download/rsmudge_irc032507.tgz
+URL:            http://jircii.dashnine.org/
+Source0:        http://jircii.dashnine.org/download/rsmudge_irc112607.tgz
 Source1:        %{name}-script
 Source2:        jicon16x16.png
 Source3:        jicon32x32.png
@@ -30,20 +28,19 @@ Patch0:         %{name}-build.patch
 Requires(post): desktop-file-utils
 Requires(postun): desktop-file-utils
 Requires:       jpackage-utils >= 0:1.5
-Requires:       sleep >= %{sleep_version}
+Requires:       sleep = %{sleep_version}
 BuildRequires:  ant >= 0:1.6
 BuildRequires:  desktop-file-utils
 BuildRequires:  java-javadoc
 BuildRequires:  java-rpmbuild >= 0:1.5
-BuildRequires:  sleep >= %{sleep_version}
-BuildRequires:  sleep-javadoc >= %{sleep_version}
+BuildRequires:  sleep = %{sleep_version}
+BuildRequires:  sleep-javadoc = %{sleep_version}
 %if %{gcj_support}
 BuildRequires:  java-gcj-compat-devel
 %else
-BuildRequires:  java-devel >= 0:1.4.2
 BuildArch:      noarch
 %endif
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-buildroot
+BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root
 
 %description
 jIRCii is an Internet Relay Chat client (IRC) for Windows, MacOS X, 
@@ -65,6 +62,11 @@ Javadoc for %{name}.
 %prep
 %setup -q -n rsmudge_irc
 %patch -p1
+%{__perl} -pi -e 's/\r$//g' resources/toplevel/license.txt \
+  resources/toplevel/docs/jircii.faq \
+  resources/toplevel/whatsnew.txt \
+  resources/toplevel/readme.txt
+
 %{_bindir}/find . -name '*.jar' | %{_bindir}/xargs -t %{__rm}
 %{__mv} src/rero/dialogs/AboutWindow.java src/rero/dialogs/AboutWindow.java.orig
 %{_bindir}/iconv -t utf8 -f iso-8859-1 -o src/rero/dialogs/AboutWindow.java src/rero/dialogs/AboutWindow.java.orig
@@ -97,14 +99,11 @@ export CLASSPATH=$(build-classpath sleep)
 %{ant} -Djava.javadoc=%{_javadocdir}/java -Dsleep.javadoc=%{_javadocdir}/sleep docs
 %{__mv} src/rero/dialogs/AboutWindow.java.orig src/rero/dialogs/AboutWindow.java
 %{__mkdir_p} %{buildroot}%{_javadocdir}/%{name}-%{version}
-%{__cp} -a docs/api/* %{buildroot}%{_javadocdir}/%{name}-%{version}
-(cd %{buildroot}%{_javadocdir} && %{__ln_s} %{name}-%{version} %{name})
-%{__rm} -r docs/api
+%{__cp} -a api/* %{buildroot}%{_javadocdir}/%{name}-%{version}
+%{__ln_s} %{name}-%{version} %{buildroot}/%{_javadocdir}/%{name}
 
 # freedesktop.org menu entry
 %{_bindir}/desktop-file-install --vendor="" \
-  --remove-category="Application" \
-  --add-category="X-MandrivaLinux-Internet-Chat" \
   --dir %{buildroot}%{_datadir}/applications %{SOURCE5}
 
 # icons for freedesktop.org and legacy menu entries
@@ -112,13 +111,6 @@ export CLASSPATH=$(build-classpath sleep)
 %{__install} -D -p -m 644 %{SOURCE3} %{buildroot}%{_datadir}/icons/hicolor/32x32/apps/%{name}.png
 %{__install} -D -p -m 644 %{SOURCE4} %{buildroot}%{_datadir}/icons/hicolor/48x48/apps/%{name}.png
 %{__install} -D -p -m 644 %{SOURCE4} %{buildroot}%{_datadir}/pixmaps/%{name}.png
-
-%{__mkdir_p} %{buildroot}%{_sysconfdir}
-%{__cat} > %{buildroot}%{_sysconfdir}/%{name}.conf << EOF
-JAVA_HOME=%{_jvmdir}/java-1.4.2-jamvm-1.4.2.0
-EOF
-
-%{__perl} -pi -e 's/\r$//g' resources/toplevel/license.txt
 
 %if %{gcj_support}
 %{_bindir}/aot-compile-rpm
@@ -157,12 +149,9 @@ EOF
 %{_datadir}/icons/hicolor/16x16/apps/%{name}.png
 %{_datadir}/icons/hicolor/32x32/apps/%{name}.png
 %{_datadir}/icons/hicolor/48x48/apps/%{name}.png
-%config(noreplace) %{_sysconfdir}/%{name}.conf
 
 %files javadoc
 %defattr(0644,root,root,0755)
-%dir %{_javadocdir}/%{name}-%{version}
-%{_javadocdir}/%{name}-%{version}/*
-%doc %dir %{_javadocdir}/%{name}
-
+%{_javadocdir}/%{name}
+%{_javadocdir}/%{name}-%{version}
 
