@@ -4,7 +4,7 @@
 
 Name:           jircii
 Version:        42
-Release:        %mkrel 0.0.2
+Release:        %mkrel 0.0.3
 Epoch:          1
 Summary:        An Internet Relay Chat (IRC) client for Windows, MacOS X, and Linux
 License:        Artistic
@@ -28,13 +28,13 @@ Patch0:         %{name}-build.patch
 Requires(post): desktop-file-utils
 Requires(postun): desktop-file-utils
 Requires:       jpackage-utils >= 0:1.5
-Requires:       sleep = %{sleep_version}
+Requires:       sleep2.1.20 = %{sleep_version}
 BuildRequires:  ant >= 0:1.6
 BuildRequires:  desktop-file-utils
 BuildRequires:  java-javadoc
 BuildRequires:  java-rpmbuild >= 0:1.5
-BuildRequires:  sleep = %{sleep_version}
-BuildRequires:  sleep-javadoc = %{sleep_version}
+BuildRequires:  sleep2.1.20 = %{sleep_version}
+BuildRequires:  sleep2.1.20-javadoc = %{sleep_version}
 %if %{gcj_support}
 BuildRequires:  java-gcj-compat-devel
 %else
@@ -72,8 +72,8 @@ Javadoc for %{name}.
 %{_bindir}/iconv -t utf8 -f iso-8859-1 -o src/rero/dialogs/AboutWindow.java src/rero/dialogs/AboutWindow.java.orig
 
 %build
-export CLASSPATH=$(build-classpath sleep)
-%{ant} -Djava.javadoc=%{_javadocdir}/java -Dsleep.javadoc=%{_javadocdir}/sleep jar
+export CLASSPATH=$(build-classpath sleep2.1.20)
+%{ant} -Djava.javadoc=%{_javadocdir}/java -Dsleep.javadoc=%{_javadocdir}/sleep2.1.20 jar
 
 %install
 %{__rm} -rf %{buildroot}
