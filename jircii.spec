@@ -3,14 +3,14 @@
 %define gcj_support     1
 
 Name:           jircii
-Version:        43
-Release:        %mkrel 0.0.2
+Version:        44
+Release:        %mkrel 0.0.1
 Epoch:          1
 Summary:        An Internet Relay Chat (IRC) client for Windows, MacOS X, and Linux
 License:        Artistic
 Group:          Development/Java
 URL:            http://jircii.dashnine.org/
-Source0:        http://jircii.dashnine.org/download/rsmudge_irc050908.tgz
+Source0:        http://jircii.dashnine.org/download/rsmudge_irc080708.tgz
 Source1:        %{name}-script
 Source2:        jicon16x16.png
 Source3:        jicon32x32.png
