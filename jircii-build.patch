@@ -1,0 +1,49 @@
+--- rsmudge_irc/build.xml.orig	2005-02-12 15:24:02.000000000 +0100
++++ rsmudge_irc/build.xml	2005-02-17 03:47:13.925371078 +0100
+@@ -5,14 +5,14 @@
+ 
+   <property name="project.path"  value="rero" />
+ 
+-  <target name="all" depends="init, compile" />
++  <target name="all" depends="compile" />
+ 
+   <target name="init">
+     <tstamp />
+     <mkdir dir="${project.build}" />
+   </target>
+ 
+-  <target name="compile" description="compile the source " >
++  <target name="compile" description="compile the source" depends="init">
+     <javac srcdir="${project.src}/" 
+            destdir="${project.build}"
+            nowarn="yes"
+@@ -47,10 +47,18 @@
+               destdir="docs/api"
+               windowtitle="jIRC RERO API">
+        <classpath path="./lib/sleep.jar" />
++       <link href="${java.javadoc}" />
++       <link href="${sleep.javadoc}" />
+      </javadoc>
+   </target>
+ 
+   <target name="jar" depends="compile">
++     <copy todir="bin" preservelastmodified="true">
++        <fileset dir="resources">
++           <include name="**" />
++           <exclude name="toplevel/**" />
++        </fileset>
++     </copy>
+      <jar destfile="jerk.jar"
+          basedir="bin"
+          includes="**/*">
+--- rsmudge_irc/build.xml.bak	2008-05-03 02:46:29.000000000 +0200
++++ rsmudge_irc/build.xml	2008-05-03 02:47:27.000000000 +0200
+@@ -48,7 +48,7 @@
+   <target name="docs" description="generate java documentation">
+      <javadoc packagenames="rero.*"
+               sourcepath="src"
+-              destdir="docs/api"
++              destdir="./api"
+               windowtitle="jIRC RERO API">
+        <classpath path="./lib/sleep.jar" />
+        <link href="${java.javadoc}" />
