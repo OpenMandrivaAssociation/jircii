@@ -9,7 +9,7 @@ Epoch:          1
 Summary:        An Internet Relay Chat (IRC) client for Windows, MacOS X, and Linux
 License:        Artistic
 Group:          Development/Java
-URL:            http://jircii.dashnine.org/
+URL:            https://jircii.dashnine.org/
 Source0:        http://jircii.dashnine.org/download/rsmudge_irc080708.tgz
 Source1:        %{name}-script
 Source2:        jicon16x16.png
